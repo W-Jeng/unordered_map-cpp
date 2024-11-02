@@ -35,7 +35,7 @@ public:
         if (bucket_nodes[hashed_value] == nullptr) {
             bucket_nodes[hashed_value] = std::make_unique<Node>(key, value);
         } else {
-            // TODO
+            // TODO 2
             continue;
         }
         std::cout << "hashed value: " << hashed_value % buckets << std::endl;
