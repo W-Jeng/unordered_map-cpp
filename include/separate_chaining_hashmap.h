@@ -1,31 +1,46 @@
 #include<unordered_map>
 #include<iostream>
 #include<vector>
+#include<memory>
 
 int temp(int a, int b) {
     return a+b;
 }
 
-template <typename _key, typename _value>
+template <typename key_type, typename value_type>
 class SeparateChainingHashMap {
 private:
+
+    struct Node {
+        key_type key;
+        value_type value;
+        Node* next = nullptr;
+
+        Node(const key_type& k, const value_type& v): key(k), value(v) {}
+    };
+
     size_t size{0};
     size_t buckets{16};
     const int resize_factor{2};
     const double load_factor{1.0}; 
-    std::vector<int> bucket_nodes; 
-
-
-    struct Node {
-        _key key;
-        _value value;
-        Node* next = nullptr;
-
-        Node(const _key& k, const _value& v): key(k), value(v) {}
-    };
+    std::vector<std::unique_ptr<Node>> bucket_nodes; 
 
 public:
-    SeparateChainingHashMap(){}
+    SeparateChainingHashMap(): bucket_nodes(buckets) {};
+    
+    void insert(const key_type& key, const value_type& value) {
+        // hashing comes first, then we do some modulo
+        size_t hashed_value = std::hash<key_type>{}(key) % buckets;
+
+        if (bucket_nodes[hashed_value] == nullptr) {
+            bucket_nodes[hashed_value] = std::make_unique<Node>(key, value);
+        } else {
+            continue;
+        }
+        std::cout << "hashed value: " << hashed_value % buckets << std::endl;
+
+        return;
+    }
 
     void print_something() {
         std::cout << "hello world!" << std::endl;
