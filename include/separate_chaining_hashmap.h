@@ -1,14 +1,20 @@
 #include<unordered_map>
 #include<iostream>
+#include<vector>
 
 int temp(int a, int b) {
     return a+b;
 }
+
 template <typename _key, typename _value>
 class SeparateChainingHashMap {
 private:
-    size_t size = 0;
-    int abcd = 0;
+    size_t size{0};
+    size_t buckets{16};
+    const int resize_factor{2};
+    const double load_factor{1.0}; 
+    std::vector<int> bucket_nodes; 
+
 
     struct Node {
         _key key;
@@ -19,10 +25,10 @@ private:
     };
 
 public:
-    SeparateChainingHashMap(const int t_abcd): abcd(t_abcd) {}
+    SeparateChainingHashMap(){}
 
     void print_something() {
-        std::cout << "the value abcd is : " << abcd << std::endl;
+        std::cout << "hello world!" << std::endl;
         return;
     }
 };
