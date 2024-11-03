@@ -5,10 +5,16 @@
 #include<string>
 #include<stdexcept>
 
-int temp(int a, int b) {
-    return a+b;
-}
-
+/*
+    Implementation of hashmap
+    Aim on functionalities:
+        (void) insert
+        (bool) contains
+        (value_type&) at 
+        (std::string) print on its representation
+        (size_t) size()
+        (void) clear, removes all element
+*/
 template <typename key_type, typename value_type>
 class SeparateChainingHashMap {
 private:
@@ -21,10 +27,11 @@ private:
         Node(const key_type& k, const value_type& v): key(k), value(v) {}
     };
 
-    size_t size{0};
-    size_t bucket_size{16};
     const int resize_factor{2};
     const double load_factor{1.0}; 
+    const size_t initial_bucket_size{16};
+    size_t element_size{0};
+    size_t bucket_size{initial_bucket_size};
     std::vector<std::shared_ptr<Node>> buckets; 
 
     void traverse_insert(std::shared_ptr<Node>& bucket_linked_list,
@@ -37,7 +44,6 @@ private:
         // Traverse the linked list to find the correct position
         while (current_node != nullptr) {
             if (current_node->key == inserting_key) {
-                std::cout << "Found it at the node value, replacing!" << std::endl;
                 current_node->value = inserting_value;
                 return;  // Key found, update value and return
             }
@@ -47,14 +53,15 @@ private:
 
         // Key not found, create a new node
         std::shared_ptr<Node> new_node = std::make_shared<Node>(inserting_key, inserting_value);
-        std::cout << "Creating new node at the end of the list" << std::endl;
 
         // If the bucket is empty, set the new node as the head of the linked list
+        element_size++;
         if (bucket_linked_list == nullptr) {
             bucket_linked_list = new_node;
         } else {
             previous_node -> next = new_node;
         }
+        return;
     }
 
     void build_linked_list_repr(std::shared_ptr<Node>& bucket_linked_list,
@@ -76,12 +83,11 @@ public:
     void insert(const key_type& inserting_key, const value_type& inserting_value) {
         // hashing comes first, then we do some modulo
         size_t bucket_index = std::hash<key_type>{}(inserting_key) % bucket_size;
-        std::cout << "bucket_index: " << bucket_index << std::endl;
         traverse_insert(buckets[bucket_index], inserting_key, inserting_value);
         return;
     }
 
-    value_type& operator[](const key_type& lookup_key) {
+    value_type& at(const key_type& lookup_key) {
         size_t bucket_index = std::hash<key_type>{}(lookup_key) % bucket_size;
         std::shared_ptr<Node> current_node = buckets[bucket_index];
 
@@ -96,6 +102,21 @@ public:
         throw std::out_of_range("Key not found");
     }
 
+    bool contains(const key_type& lookup_key) {
+        size_t bucket_index = std::hash<key_type>{}(lookup_key) % bucket_size;
+
+        std::shared_ptr<Node> current_node = buckets[bucket_index];
+
+        while (current_node != nullptr) {
+            if ((current_node -> key) == lookup_key) {
+                return true;
+            }
+            current_node = current_node -> next;
+        }
+
+        return false;
+    }
+
     void print() {
         for (int i = 0; i < buckets.size(); ++i) {
             if (buckets[i] == nullptr) {
@@ -106,5 +127,16 @@ public:
             std::cout << bucket_node_repr << std::endl;
         }
         return;
+    }
+
+    void clear() {
+        buckets.assign(initial_bucket_size, nullptr);
+        bucket_size = initial_bucket_size;
+        element_size = 0;
+        return;
+    }
+
+    size_t size() {
+        return element_size;
     }
 };
