@@ -14,5 +14,6 @@ add_subdirectory(third_party/googletest)
 include_directories(third_party/googletest/googletest/include)
 
 enable_testing()
-add_executable(unit_test tests/unit_tests.cpp)
-target_link_libraries(unit_test gtest gtest_main)
+add_executable(runtest test/unit_tests.cpp
+    test/insertion-test.cpp test/initialization-test.cpp)
+target_link_libraries(runtest gtest gtest_main)

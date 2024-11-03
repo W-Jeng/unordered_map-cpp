@@ -11,7 +11,7 @@
         (void) insert
         (bool) contains
         (value_type&) at 
-        (std::string) print on its representation
+        (std::string) print 
         (size_t) size()
         (void) clear, removes all element
 */
