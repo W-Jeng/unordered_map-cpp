@@ -15,6 +15,7 @@
         (std::string) print 
         (size_t) size()
         (void) clear, removes all element
+        TODO (void) resize, rehash the whole structure with new buckets
 */
 template <typename key_type, typename value_type>
 class SeparateChainingHashMap {
@@ -70,7 +71,8 @@ private:
 
         std::shared_ptr<Node> current_node = bucket_linked_list;
         while (current_node != nullptr) {
-            bucket_node_repr += "->[" + current_node -> key + "," + std::to_string(current_node -> value)+"]";
+            bucket_node_repr += "->[" + current_node -> key +
+                "," + std::to_string(current_node -> value)+"]";
             current_node = current_node -> next;
         }
         return;
@@ -114,7 +116,7 @@ public:
         return;
     }
 
-    value_type& at(const key_type& lookup_key) {
+    value_type& at(const key_type& lookup_key) const {
         size_t bucket_index = std::hash<key_type>{}(lookup_key) % bucket_size;
         std::shared_ptr<Node> current_node = buckets[bucket_index];
 
@@ -129,7 +131,7 @@ public:
         throw std::out_of_range("Key not found");
     }
 
-    bool contains(const key_type& lookup_key) {
+    bool contains(const key_type& lookup_key) const {
         size_t bucket_index = std::hash<key_type>{}(lookup_key) % bucket_size;
         std::shared_ptr<Node> current_node = buckets[bucket_index];
 

@@ -47,6 +47,24 @@ TEST(SeparateChainingHashmap, InsertionTestWithDeletion) {
             EXPECT_TRUE(hashmap.contains(std::string(1, temp)));
         }
     }
+}
 
+TEST(SeparateChainingHashmap, InsertionTestWithClear) {
+    SeparateChainingHashMap<int, int> hashmap;
+    const size_t elements = 1000;
+
+    for (int i = 0; i < elements; ++i) {
+        hashmap.insert(i, elements+i);
+    }
+    
+    for (int i = 0; i < elements; ++i) {
+        EXPECT_TRUE(hashmap.contains(i));
+    }
+
+    hashmap.clear();
+
+    for (int i = 0; i < elements; ++i) {
+        EXPECT_FALSE(hashmap.contains(i));
+    }
 }
 
