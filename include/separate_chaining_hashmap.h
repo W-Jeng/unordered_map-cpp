@@ -10,6 +10,7 @@
     Aim on functionalities:
         (void) insert
         (bool) contains
+        (void) erase
         (value_type&) at 
         (std::string) print 
         (size_t) size()
@@ -68,12 +69,38 @@ private:
         std::string& bucket_node_repr) {
 
         std::shared_ptr<Node> current_node = bucket_linked_list;
-
         while (current_node != nullptr) {
             bucket_node_repr += "->[" + current_node -> key + "," + std::to_string(current_node -> value)+"]";
             current_node = current_node -> next;
         }
+        return;
+    }
 
+    void traverse_remove(std::shared_ptr<Node>& bucket_linked_list,
+        const key_type& removal_key) {
+        
+        if (bucket_linked_list == nullptr) {
+            return;
+        }
+
+        std::shared_ptr<Node> current_node = bucket_linked_list; 
+        std::shared_ptr<Node> previous_node = nullptr;
+
+        while (current_node != nullptr) {
+            if (current_node -> key == removal_key) {
+                if (previous_node == nullptr) {
+                    // removal at head
+                    bucket_linked_list = current_node -> next;       
+                } else {
+                    // skipping this node == deleting it
+                    previous_node -> next = current_node -> next;
+                }
+                element_size--;
+                return;
+            }
+            previous_node = current_node;
+            current_node = current_node -> next;
+        }
         return;
     }
 
@@ -91,7 +118,7 @@ public:
         size_t bucket_index = std::hash<key_type>{}(lookup_key) % bucket_size;
         std::shared_ptr<Node> current_node = buckets[bucket_index];
 
-        while (current_node != nullptr && ((current_node -> key) != lookup_key)) {
+        while (current_node != nullptr && (current_node -> key != lookup_key)) {
             current_node = current_node -> next;
         }
 
@@ -104,7 +131,6 @@ public:
 
     bool contains(const key_type& lookup_key) {
         size_t bucket_index = std::hash<key_type>{}(lookup_key) % bucket_size;
-
         std::shared_ptr<Node> current_node = buckets[bucket_index];
 
         while (current_node != nullptr) {
@@ -113,7 +139,6 @@ public:
             }
             current_node = current_node -> next;
         }
-
         return false;
     }
 
@@ -133,6 +158,12 @@ public:
         buckets.assign(initial_bucket_size, nullptr);
         bucket_size = initial_bucket_size;
         element_size = 0;
+        return;
+    }
+
+    void erase(const key_type& removal_key) {
+        size_t bucket_index = std::hash<key_type>{}(removal_key) % bucket_size;
+        traverse_remove(buckets[bucket_index], removal_key);
         return;
     }
 

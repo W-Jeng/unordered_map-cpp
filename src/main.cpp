@@ -12,13 +12,10 @@ int main() {
     hmap.insert("126", 1000);
     hmap.insert("123", 100);
     hmap.insert("126", 125);
-    std::cout << hmap.at("123") << std::endl;
-    std::cout << hmap.contains("123") << std::endl;
-    std::cout << "size of hmap: " << hmap.size() << std::endl;
     hmap.print();
-    hmap.clear();
-    std::cout << "cleared!" << std::endl;
-    hmap.insert("1", 2);
+    hmap.erase("124");
+    hmap.erase("126");
+    std::cout << "contains 124: " << hmap.contains("124") << std::endl;
     hmap.print();
     return 0;
 }
