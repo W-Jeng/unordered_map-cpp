@@ -38,6 +38,7 @@ TEST(SeparateChainingHashmap, InsertionTestWithDeletion) {
     for (int i = 0; i < char_to_remove.size(); ++i) {
         hashmap.erase(std::string(1, char_to_remove[i]));
     }
+
     // test on all alphabets except where we expect false
     for (int i = 0; i < 26; ++i) {
         char temp = 'a' + i;
@@ -68,3 +69,17 @@ TEST(SeparateChainingHashmap, InsertionTestWithClear) {
     }
 }
 
+TEST(SeparateChainingHashmap, InsertionTestWithAt) {
+    SeparateChainingHashMap<size_t, size_t> hashmap;
+    const size_t elements = 100;
+
+    for (int i = 0; i < elements; ++i) {
+        size_t hashed_key = std::hash<size_t>{}(i);
+        size_t hashed_value = std::hash<size_t>{}(i+elements);
+        hashmap.insert(hashed_key, hashed_value);
+    }
+
+    for (int i = 0; i < elements; ++i) {
+        EXPECT_EQ(hashmap.at(std::hash<size_t>{}(i)), std::hash<size_t>{}(i+elements));
+    }
+}

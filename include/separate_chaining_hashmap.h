@@ -15,7 +15,7 @@
         (std::string) print 
         (size_t) size()
         (void) clear, removes all element
-        TODO (void) resize, rehash the whole structure with new buckets
+        (void) resize, resize and rehash the whole structure with new buckets
 */
 template <typename key_type, typename value_type>
 class SeparateChainingHashMap {
@@ -72,7 +72,7 @@ private:
         std::shared_ptr<Node> current_node = bucket_linked_list;
         while (current_node != nullptr) {
             bucket_node_repr += "->[" + current_node -> key +
-                "," + std::to_string(current_node -> value)+"]";
+                "," + std::to_string(current_node -> value) +"]";
             current_node = current_node -> next;
         }
         return;
@@ -106,6 +106,37 @@ private:
         return;
     }
 
+    void redistribute_linked_list(std::shared_ptr<Node>& bucket_linked_list,
+        std::vector<std::shared_ptr<Node>>& resized_buckets) {
+        
+        while (bucket_linked_list != nullptr) {
+            size_t resized_bucket_index = std::hash<key_type>{}(bucket_linked_list->key) % bucket_size;
+            traverse_insert(resized_buckets[resized_bucket_index], bucket_linked_list->key,
+                bucket_linked_list->value);
+            bucket_linked_list = bucket_linked_list -> next;
+        }
+
+        return;
+    }
+
+    void resize() {
+
+        if (static_cast<double>(element_size) / bucket_size < load_factor) {
+            return;
+        }
+
+        bucket_size *= resize_factor;
+        element_size = 0;
+        std::vector<std::shared_ptr<Node>> resized_buckets(bucket_size, nullptr);
+
+        for (int i = 0; i < buckets.size(); ++i) {
+            redistribute_linked_list(buckets[i], resized_buckets);
+        }
+
+        buckets = std::move(resized_buckets);
+        return;
+    }
+
 public:
     SeparateChainingHashMap(): buckets(bucket_size) {};
     
@@ -113,6 +144,7 @@ public:
         // hashing comes first, then we do some modulo
         size_t bucket_index = std::hash<key_type>{}(inserting_key) % bucket_size;
         traverse_insert(buckets[bucket_index], inserting_key, inserting_value);
+        resize();
         return;
     }
 
@@ -172,4 +204,6 @@ public:
     size_t size() {
         return element_size;
     }
+
+
 };

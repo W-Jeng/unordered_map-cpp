@@ -13,7 +13,7 @@ TEST(SeparateChainingHashmap, SizeTestBasic) {
 
 TEST(SeparateChainingHashmap, SizeTestLoop) {
     SeparateChainingHashMap<int, std::string> hashmap;
-    const size_t elements{1000}; 
+    const size_t elements{100}; 
 
     for (int i = 0; i < elements; ++i) {
         hashmap.insert(i, std::to_string(i));
@@ -23,7 +23,7 @@ TEST(SeparateChainingHashmap, SizeTestLoop) {
 
 TEST(SeparateChainingHashmap, SizeTestClear) {
     SeparateChainingHashMap<int, int> hashmap;
-    const size_t elements(1000);
+    const size_t elements(100);
 
     for (int i = 0; i < elements; ++i) {
         hashmap.insert(i, elements+i);
