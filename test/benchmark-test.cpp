@@ -18,8 +18,13 @@ void custom_insert_int_int(SeparateChainingHashMap<int, int>& hashmap) {
     return;
 }
 
-void default_insert_int_int(std::unordered_map<int, int>& hashmap) {
+void default_emplace_int_int(std::unordered_map<int, int>& hashmap) {
     hashmap.emplace(1, 1);
+    return;
+}
+
+void default_subscript_int_int(std::unordered_map<int, int>& hashmap) {
+    hashmap[1] = 1;
     return;
 }
 
@@ -36,10 +41,17 @@ static void InitDefaultHashmap(benchmark::State& state) {
     }
 }
 
-static void InsertDefaultHashmap(benchmark::State& state) {
+static void EmplaceDefaultHashmap(benchmark::State& state) {
     std::unordered_map<int, int> hashmap;
     for (auto _: state) {
-        default_insert_int_int(hashmap);
+        default_emplace_int_int(hashmap);
+    }
+}
+
+static void SubscriptDefaultHashmap(benchmark::State& state) {
+    std::unordered_map<int, int> hashmap;
+    for (auto _: state) {
+        default_subscript_int_int(hashmap);
     }
 }
 
@@ -52,7 +64,8 @@ static void InsertCustomHashmap(benchmark::State& state) {
 
 BENCHMARK(InitDefaultHashmap);
 BENCHMARK(InitCustomHashmap);
-BENCHMARK(InsertDefaultHashmap);
+BENCHMARK(EmplaceDefaultHashmap);
+BENCHMARK(SubscriptDefaultHashmap);
 BENCHMARK(InsertCustomHashmap);
 
 
