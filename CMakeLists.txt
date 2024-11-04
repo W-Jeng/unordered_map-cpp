@@ -18,3 +18,9 @@ add_executable(runtest test/unit_tests.cpp
     test/insertion-test.cpp test/initialization-test.cpp
     test/size-test.cpp)
 target_link_libraries(runtest gtest gtest_main)
+
+
+# BENCHMARK FRAMEWORK
+add_subdirectory(third_party/benchmark)
+add_executable(runbenchmark test/benchmark-test.cpp)
+target_link_libraries(runbenchmark benchmark::benchmark)
