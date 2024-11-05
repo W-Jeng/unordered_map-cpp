@@ -3,26 +3,26 @@
 #include <string>
 
 void init_string_int() {
-    SeparateChainingHashMap<std::string, int> hmap;
+    SharedPtr::Hashmap<std::string, int> hmap;
 }
 
 void init_int_int() {
-    SeparateChainingHashMap<int, int> hmap;
+    SharedPtr::Hashmap<int, int> hmap;
 }
 
 void init_double_int() {
-    SeparateChainingHashMap<double, int> hmap;
+    SharedPtr::Hashmap<double, int> hmap;
 }
 
 void init_int_string() {
-    SeparateChainingHashMap<int, std::string> hmap;
+    SharedPtr::Hashmap<int, std::string> hmap;
 }
 
 void init_string_string() {
-    SeparateChainingHashMap<std::string, std::string> hmap;
+    SharedPtr::Hashmap<std::string, std::string> hmap;
 }
 
-TEST(SeparateChainingHashmap, Initialization) {
+TEST(Hashmap, Initialization) {
     EXPECT_NO_THROW(init_string_int());
     EXPECT_NO_THROW(init_int_int());
     EXPECT_NO_THROW(init_double_int());

@@ -4,7 +4,7 @@
 #include <unordered_map>
 
 void custom_init_int_int() {
-    SeparateChainingHashMap<int, int> hashmap;
+    SharedPtr::Hashmap<int, int> hashmap;
     return;
 }
 
@@ -13,18 +13,17 @@ void default_init_int_int() {
     return;
 }
 
-void custom_insert_int_int(SeparateChainingHashMap<int, int>& hashmap) {
-    hashmap.insert(1, 1);
+void custom_insert_int_int(SharedPtr::Hashmap<int, int>& hashmap, int num_items) {
+    for (int i = 0; i < num_items; ++i) {
+        hashmap.insert(i, i);
+    }
     return;
 }
 
-void default_emplace_int_int(std::unordered_map<int, int>& hashmap) {
-    hashmap.emplace(1, 1);
-    return;
-}
-
-void default_subscript_int_int(std::unordered_map<int, int>& hashmap) {
-    hashmap[1] = 1;
+void default_subscript_int_int(std::unordered_map<int, int>& hashmap, int num_items) {
+    for (int i = 0; i < num_items; ++i) {
+        hashmap[i] = i;
+    }
     return;
 }
 
@@ -41,32 +40,25 @@ static void InitDefaultHashmap(benchmark::State& state) {
     }
 }
 
-static void EmplaceDefaultHashmap(benchmark::State& state) {
+static void InsertDefaultHashmap(benchmark::State& state) {
     std::unordered_map<int, int> hashmap;
+    int num_items = state.range(0);
     for (auto _: state) {
-        default_emplace_int_int(hashmap);
-    }
-}
-
-static void SubscriptDefaultHashmap(benchmark::State& state) {
-    std::unordered_map<int, int> hashmap;
-    for (auto _: state) {
-        default_subscript_int_int(hashmap);
+        default_subscript_int_int(hashmap, num_items);
     }
 }
 
 static void InsertCustomHashmap(benchmark::State& state) {
-    SeparateChainingHashMap<int, int> hashmap;
+    SharedPtr::Hashmap<int, int> hashmap;
+    int num_items = state.range(0);
     for (auto _: state) {
-        custom_insert_int_int(hashmap);
+        custom_insert_int_int(hashmap, num_items);
     }
 }
 
 BENCHMARK(InitDefaultHashmap);
 BENCHMARK(InitCustomHashmap);
-BENCHMARK(EmplaceDefaultHashmap);
-BENCHMARK(SubscriptDefaultHashmap);
-BENCHMARK(InsertCustomHashmap);
-
+BENCHMARK(InsertDefaultHashmap) -> Arg(1) -> Arg(16) -> Arg(64) -> Arg(256) -> Arg(1024);
+BENCHMARK(InsertCustomHashmap) -> Arg(1) -> Arg(16) -> Arg(64) -> Arg(256) -> Arg(1024);
 
 BENCHMARK_MAIN();

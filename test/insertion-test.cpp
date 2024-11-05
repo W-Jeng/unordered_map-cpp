@@ -2,8 +2,8 @@
 #include "separate_chaining_hashmap.h"
 #include <string>
 
-TEST(SeparateChainingHashmap, InsertionTest) {
-    SeparateChainingHashMap<int, int> hashmap;
+TEST(Hashmap, InsertionTest) {
+    SharedPtr::Hashmap<int, int> hashmap;
     hashmap.insert(1, 101);
     hashmap.insert(2, 102);
     EXPECT_TRUE(hashmap.contains(1));
@@ -21,8 +21,8 @@ bool char_is_in(const std::string& lookup_chars, char lookup_val) {
     return false;
 }
 
-TEST(SeparateChainingHashmap, InsertionTestWithDeletion) {
-    SeparateChainingHashMap<std::string, int> hashmap;
+TEST(Hashmap, InsertionTestWithDeletion) {
+    SharedPtr::Hashmap<std::string, int> hashmap;
 
     for (int i = 0; i < 26; ++i) {
         std::string temp = std::string(1, 'a'+i);
@@ -50,8 +50,8 @@ TEST(SeparateChainingHashmap, InsertionTestWithDeletion) {
     }
 }
 
-TEST(SeparateChainingHashmap, InsertionTestWithClear) {
-    SeparateChainingHashMap<int, int> hashmap;
+TEST(Hashmap, InsertionTestWithClear) {
+    SharedPtr::Hashmap<int, int> hashmap;
     const size_t elements = 1000;
 
     for (int i = 0; i < elements; ++i) {
@@ -69,8 +69,8 @@ TEST(SeparateChainingHashmap, InsertionTestWithClear) {
     }
 }
 
-TEST(SeparateChainingHashmap, InsertionTestWithAt) {
-    SeparateChainingHashMap<size_t, size_t> hashmap;
+TEST(Hashmap, InsertionTestWithAt) {
+    SharedPtr::Hashmap<size_t, size_t> hashmap;
     const size_t elements = 100;
 
     for (int i = 0; i < elements; ++i) {

@@ -2,8 +2,8 @@
 #include "separate_chaining_hashmap.h"
 #include <string>
 
-TEST(SeparateChainingHashmap, SizeTestBasic) {
-    SeparateChainingHashMap<std::string, std::string> hashmap;
+TEST(Hashmap, SizeTestBasic) {
+    SharedPtr::Hashmap<std::string, std::string> hashmap;
     EXPECT_EQ(hashmap.size(), 0);
     hashmap.insert("A", "1");
     EXPECT_EQ(hashmap.size(), 1);
@@ -11,8 +11,8 @@ TEST(SeparateChainingHashmap, SizeTestBasic) {
     EXPECT_EQ(hashmap.size(), 2);
 }
 
-TEST(SeparateChainingHashmap, SizeTestLoop) {
-    SeparateChainingHashMap<int, std::string> hashmap;
+TEST(Hashmap, SizeTestLoop) {
+    SharedPtr::Hashmap<int, std::string> hashmap;
     const size_t elements{100}; 
 
     for (int i = 0; i < elements; ++i) {
@@ -21,8 +21,8 @@ TEST(SeparateChainingHashmap, SizeTestLoop) {
     }
 }
 
-TEST(SeparateChainingHashmap, SizeTestClear) {
-    SeparateChainingHashMap<int, int> hashmap;
+TEST(Hashmap, SizeTestClear) {
+    SharedPtr::Hashmap<int, int> hashmap;
     const size_t elements(100);
 
     for (int i = 0; i < elements; ++i) {
@@ -33,8 +33,8 @@ TEST(SeparateChainingHashmap, SizeTestClear) {
     EXPECT_EQ(hashmap.size(), 0);
 }
 
-TEST(SeparateChainingHashmap, SizeTestEraseProgress) {
-    SeparateChainingHashMap<int, int> hashmap;
+TEST(Hashmap, SizeTestEraseProgress) {
+    SharedPtr::Hashmap<int, int> hashmap;
     const size_t elements(100);
 
     for (int i = 0; i < elements; ++i) {
@@ -48,8 +48,8 @@ TEST(SeparateChainingHashmap, SizeTestEraseProgress) {
     }
 }
 
-TEST(SeparateChainingHashmap, SizeTestEraseEmpty) {
-    SeparateChainingHashMap<int, int> hashmap;
+TEST(Hashmap, SizeTestEraseEmpty) {
+    SharedPtr::Hashmap<int, int> hashmap;
 
     hashmap.insert(1, 100);
     EXPECT_EQ(hashmap.size(), 1);

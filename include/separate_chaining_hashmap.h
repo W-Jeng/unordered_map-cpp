@@ -17,8 +17,9 @@
         (void) clear, removes all element
         (void) resize, resize and rehash the whole structure with new buckets
 */
+namespace SharedPtr {
 template <typename key_type, typename value_type>
-class SeparateChainingHashMap {
+class Hashmap {
 private:
 
     struct Node {
@@ -44,6 +45,7 @@ private:
         std::shared_ptr<Node> previous_node = nullptr;
 
         // Traverse the linked list to find the correct position
+        
         while (current_node != nullptr) {
             if (current_node->key == inserting_key) {
                 current_node->value = inserting_value;
@@ -52,7 +54,6 @@ private:
             previous_node = current_node;
             current_node = current_node->next; 
         }
-
         // Key not found, create a new node
         std::shared_ptr<Node> new_node = std::make_shared<Node>(inserting_key, inserting_value);
 
@@ -138,7 +139,7 @@ private:
     }
 
 public:
-    SeparateChainingHashMap(): buckets(bucket_size) {};
+    Hashmap(): buckets(bucket_size) {};
     
     void insert(const key_type& inserting_key, const value_type& inserting_value) {
         // hashing comes first, then we do some modulo
@@ -148,7 +149,7 @@ public:
         return;
     }
 
-    value_type& at(const key_type& lookup_key) const {
+    const value_type& at(const key_type& lookup_key) const {
         size_t bucket_index = std::hash<key_type>{}(lookup_key) % bucket_size;
         std::shared_ptr<Node> current_node = buckets[bucket_index];
 
@@ -163,7 +164,7 @@ public:
         throw std::out_of_range("Key not found");
     }
 
-    bool contains(const key_type& lookup_key) const {
+    inline bool contains(const key_type& lookup_key) const {
         size_t bucket_index = std::hash<key_type>{}(lookup_key) % bucket_size;
         std::shared_ptr<Node> current_node = buckets[bucket_index];
 
@@ -205,5 +206,5 @@ public:
         return element_size;
     }
 
-
 };
+}

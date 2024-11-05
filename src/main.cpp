@@ -4,7 +4,7 @@
 #include<memory>
 
 int main() {
-    SeparateChainingHashMap<std::string, int> hmap;
+    SharedPtr::Hashmap<std::string, int> hmap;
     hmap.insert("123", 1);
     hmap.insert("122", 123);
     hmap.insert("124", 2);

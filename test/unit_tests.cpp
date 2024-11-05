@@ -3,7 +3,7 @@
 #include <string>
 
 TEST(Hashmap, InsertionAndFind) {
-    SeparateChainingHashMap<std::string, int> hmap;
+    SharedPtr::Hashmap<std::string, int> hmap;
     hmap.insert("a", 1);
     EXPECT_EQ(hmap.contains("a"), 1);
 }
