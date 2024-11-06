@@ -41,7 +41,7 @@ private:
     void traverse_insert(std::shared_ptr<Node>& bucket_linked_list,
         const key_type& inserting_key,
         const value_type& inserting_value) {
-        // MEMORY LEAKING, INVESTIGATE!
+
         std::shared_ptr<Node> current_node = bucket_linked_list;
         std::shared_ptr<Node> previous_node = nullptr;
 

@@ -41,7 +41,7 @@ private:
     void traverse_insert(Node* bucket_linked_list,
         const key_type& inserting_key,
         const value_type& inserting_value) {
-        
+        // MEMORY LEAKING, INVESTIGATE!
         Node* current_node = bucket_linked_list;
         Node* previous_node = nullptr;
 
