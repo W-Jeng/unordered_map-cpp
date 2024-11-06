@@ -1,5 +1,5 @@
 #include<gtest/gtest.h>
-#include "separate_chaining_hashmap.h"
+#include "hashmap_sharedptr.h"
 #include <string>
 
 TEST(Hashmap, InsertionTest) {

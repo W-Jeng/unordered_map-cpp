@@ -1,6 +1,6 @@
 // tests/benchmark_test.cpp
 #include <benchmark/benchmark.h>
-#include "separate_chaining_hashmap.h"
+#include "hashmap_sharedptr.h"
 #include <unordered_map>
 
 void custom_init_int_int() {
