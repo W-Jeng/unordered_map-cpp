@@ -1,10 +1,11 @@
 #include <iostream>
 #include "hashmap_sharedptr.h"
+#include "hashmap_rawptr.h"
 #include<functional>
 #include<memory>
 
 int main() {
-    SharedPtr::Hashmap<std::string, int> hmap;
+    RawPtr::Hashmap<std::string, int> hmap;
     hmap.insert("123", 1);
     hmap.insert("122", 123);
     hmap.insert("124", 2);

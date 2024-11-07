@@ -38,10 +38,10 @@ private:
     size_t bucket_size{initial_bucket_size};
     std::vector<Node*> buckets; 
 
-    void traverse_insert(Node* bucket_linked_list,
+    void traverse_insert(Node*& bucket_linked_list,
         const key_type& inserting_key,
         const value_type& inserting_value) {
-        // MEMORY LEAKING, INVESTIGATE!
+
         Node* current_node = bucket_linked_list;
         Node* previous_node = nullptr;
 
@@ -73,7 +73,7 @@ private:
         return;
     }
 
-    void build_linked_list_repr(Node* bucket_linked_list,
+    void build_linked_list_repr(Node*& bucket_linked_list,
         std::string& bucket_node_repr) {
 
         Node* current_node = bucket_linked_list;
@@ -87,8 +87,8 @@ private:
         return;
     }
 
-    void traverse_remove(Node* bucket_linked_list,
-        const keybucket_node_repr_type& removal_key) {
+    void traverse_remove(Node*& bucket_linked_list,
+        const key_type& removal_key) {
         
         if (bucket_linked_list == nullptr) {
             return;
@@ -119,14 +119,16 @@ private:
         return;
     }
 
-    void redistribute_linked_list(Node* bucket_linked_list,
+    void redistribute_linked_list(Node*& bucket_linked_list,
         std::vector<Node*>& resized_buckets) {
         
         while (bucket_linked_list != nullptr) {
+            Node* temp = bucket_linked_list;
             size_t resized_bucket_index = std::hash<key_type>{}(bucket_linked_list->key) % bucket_size;
             traverse_insert(resized_buckets[resized_bucket_index], bucket_linked_list->key,
                 bucket_linked_list->value);
             bucket_linked_list = bucket_linked_list -> next;
+            delete temp;
         }
 
         return;
@@ -228,7 +230,7 @@ public:
     void clear() {
 
         deallocate();
-        buckets = std::vector<Node*> buckets(initial_bucket_size, nullptr);
+        buckets = std::vector<Node*>(initial_bucket_size, nullptr);
         bucket_size = initial_bucket_size;
         element_size = 0;
 

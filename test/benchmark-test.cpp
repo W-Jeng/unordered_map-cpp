@@ -1,10 +1,11 @@
 // tests/benchmark_test.cpp
 #include <benchmark/benchmark.h>
 #include "hashmap_sharedptr.h"
+#include "hashmap_rawptr.h"
 #include <unordered_map>
 
 void custom_init_int_int() {
-    SharedPtr::Hashmap<int, int> hashmap;
+    RawPtr::Hashmap<int, int> hashmap;
     return;
 }
 
@@ -13,7 +14,7 @@ void default_init_int_int() {
     return;
 }
 
-void custom_insert_int_int(SharedPtr::Hashmap<int, int>& hashmap, int num_items) {
+void custom_insert_int_int(RawPtr::Hashmap<int, int>& hashmap, int num_items) {
     for (int i = 0; i < num_items; ++i) {
         hashmap.insert(i, i);
     }
@@ -49,7 +50,7 @@ static void InsertDefaultHashmap(benchmark::State& state) {
 }
 
 static void InsertCustomHashmap(benchmark::State& state) {
-    SharedPtr::Hashmap<int, int> hashmap;
+    RawPtr::Hashmap<int, int> hashmap;
     int num_items = state.range(0);
     for (auto _: state) {
         custom_insert_int_int(hashmap, num_items);
