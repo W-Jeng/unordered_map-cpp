@@ -169,6 +169,6 @@ cd build
 ./runbenchmark
 ```
 
-## Foreword
+## Lessons Learned
 
-This project has been a fantastic learning journey for me. I've gained a deeper understanding of C++ by implementing custom hashmaps with both raw pointers and shared pointers. It's been a hands-on way to learn about memory management, pointer arithmetic, and the intricacies of C++ data structures. Additionally, working with CMake for the first time has given me practical experience in project configuration and build systems. Overall, this project has significantly expanded my skills and understanding of C++ and its application in real-world scenarios.
+This project has been a great way to dive deeper into C++. Implementing custom hashmaps with raw and shared pointers has definitely given me a better grip on memory management, pointer math, and C++ data structures. Plus, figuring out CMake for the first time was a whole new adventure in build systems. All in all, it’s been a solid learning experience, and I’ve walked away with a better understanding of C++ and how it works in real projects.
