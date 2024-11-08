@@ -14,7 +14,7 @@ This repository contains an implementation of a **Separate Chaining Hashmap** wi
 
 This project implements a hashmap using **separate chaining** as a collision resolution technique. Three different hashmaps are compared:
 1. **Standard C++ `unordered_map`** – A highly optimized, standard implementation.
-2. **`RawPtr::Hashmap`** – A custom hashmap using raw pointers.
+2. **`RawPtr::Hashmap`** –  A custom hashmap using raw pointers, where memory management is handled manually but with a careful approach to ensure **RAII** (Resource Acquisition Is Initialization).
 3. **`SharedPtr::Hashmap`** – A custom hashmap using `std::shared_ptr` for automatic memory management.
 
 The performance of these implementations is evaluated using the **Google Benchmark** framework, and the project includes unit tests for functionality validation with **Google Test**.
