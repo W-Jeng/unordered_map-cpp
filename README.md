@@ -47,32 +47,44 @@ Load Average: 0.20, 0.35, 0.34
 Benchmark                                  Time             CPU   Iterations
 ----------------------------------------------------------------------------
 unordered_map_init                     0.000 ns        0.000 ns   1000000000000
-rawptr_hashmap_init                     14.0 ns         14.0 ns     49703927
-sharedptr_hashmap_init                  13.1 ns         13.1 ns     53452459
-unordered_map_insert_int/1              2.29 ns         2.29 ns    301780987
-unordered_map_insert_int/16             36.5 ns         36.5 ns     19155509
-unordered_map_insert_int/256             585 ns          585 ns      1197761
-unordered_map_insert_int/4096           9374 ns         9374 ns        74743
-rawptr_hashmap_insert_int/1             2.37 ns         2.37 ns    295378893
-rawptr_hashmap_insert_int/16            37.3 ns         37.3 ns     18693486
-rawptr_hashmap_insert_int/256            607 ns          607 ns      1153211
-rawptr_hashmap_insert_int/4096          9757 ns         9756 ns        71934
-sharedptr_hashmap_insert_int/1          5.11 ns         5.11 ns    100000000
-sharedptr_hashmap_insert_int/16         54.2 ns         54.2 ns     12948731
-sharedptr_hashmap_insert_int/256         720 ns          720 ns       977874
-sharedptr_hashmap_insert_int/4096      11746 ns        11745 ns        60569
-unordered_map_lookup/1                  2.29 ns         2.29 ns    306575128
-unordered_map_lookup/16                 36.6 ns         36.6 ns     19146450
-unordered_map_lookup/256                 585 ns          585 ns      1196571
-unordered_map_lookup/4096               9350 ns         9350 ns        74758
-rawptr_hashmap_lookup/1                 2.29 ns         2.29 ns    304893271
-rawptr_hashmap_lookup/16                36.5 ns         36.5 ns     19131036
-rawptr_hashmap_lookup/256                585 ns          585 ns      1187820
-rawptr_hashmap_lookup/4096              9407 ns         9406 ns        74847
-sharedptr_hashmap_lookup/1              2.87 ns         2.87 ns    245741090
-sharedptr_hashmap_lookup/16             39.4 ns         39.4 ns     18375738
-sharedptr_hashmap_lookup/256             600 ns          600 ns      1078546
-sharedptr_hashmap_lookup/4096          10029 ns        10028 ns        74411
+rawptr_hashmap_init                     14.3 ns         14.3 ns     48454911
+sharedptr_hashmap_init                  13.2 ns         13.2 ns     52547254
+unordered_map_insert_int/1              2.28 ns         2.28 ns    306534208
+unordered_map_insert_int/16             36.6 ns         36.6 ns     19137819
+unordered_map_insert_int/256             585 ns          584 ns      1197457
+unordered_map_insert_int/4096           9353 ns         9352 ns        74599
+rawptr_hashmap_insert_int/1             2.37 ns         2.37 ns    294093496
+rawptr_hashmap_insert_int/16            37.3 ns         37.3 ns     18776098
+rawptr_hashmap_insert_int/256            599 ns          599 ns      1168680
+rawptr_hashmap_insert_int/4096          9678 ns         9677 ns        72320
+sharedptr_hashmap_insert_int/1          2.69 ns         2.69 ns    259201552
+sharedptr_hashmap_insert_int/16         48.3 ns         48.3 ns     14451438
+sharedptr_hashmap_insert_int/256         670 ns          670 ns      1053645
+sharedptr_hashmap_insert_int/4096      10692 ns        10692 ns        65508
+unordered_map_lookup/1                  2.28 ns         2.28 ns    305743553
+unordered_map_lookup/16                 36.5 ns         36.5 ns     19176529
+unordered_map_lookup/256                 584 ns          584 ns      1197246
+unordered_map_lookup/4096               9415 ns         9415 ns        74842
+rawptr_hashmap_lookup/1                 2.29 ns         2.29 ns    306528311 
+rawptr_hashmap_lookup/16                37.0 ns         37.0 ns     19100412
+rawptr_hashmap_lookup/256                639 ns          639 ns      1138191
+rawptr_hashmap_lookup/4096              9383 ns         9382 ns        68811
+sharedptr_hashmap_lookup/1              2.98 ns         2.98 ns    244706802
+sharedptr_hashmap_lookup/16             36.9 ns         36.9 ns     18987722
+sharedptr_hashmap_lookup/256             586 ns          586 ns      1195728
+sharedptr_hashmap_lookup/4096           9459 ns         9458 ns        73889
+unordered_map_erase/1                   1.26 ns         1.25 ns    557909935
+unordered_map_erase/16                  4.85 ns         4.85 ns    144236113
+unordered_map_erase/256                 72.5 ns         72.5 ns      9570752
+unordered_map_erase/4096                 949 ns          949 ns       737685
+rawptr_hashmap_erase/1                  2.28 ns         2.28 ns    304978187
+rawptr_hashmap_erase/16                 36.6 ns         36.6 ns     19148018
+rawptr_hashmap_erase/256                 584 ns          584 ns      1196994
+rawptr_hashmap_erase/4096               9342 ns         9341 ns        74930
+sharedptr_hashmap_erase/1               2.28 ns         2.28 ns    306821989
+sharedptr_hashmap_erase/16              36.5 ns         36.5 ns     19185301
+sharedptr_hashmap_erase/256              584 ns          584 ns      1197598
+sharedptr_hashmap_erase/4096            9343 ns         9342 ns        74930
 ```
 
 ### Relative Performance Analysis
@@ -83,27 +95,36 @@ sharedptr_hashmap_lookup/4096          10029 ns        10028 ns        74411
 
 #### **Insertion Performance:**
 - **Inserting 1 item:**
-  - `RawPtr::Hashmap` is about **3.5%** slower than `unordered_map`.
-  - `SharedPtr::Hashmap` is about **123%** slower than `unordered_map`.
+  - `RawPtr::Hashmap` is about **3.9%** slower than `unordered_map`.
+  - `SharedPtr::Hashmap` is about **18%** slower than `unordered_map`.
   
 - **Inserting 4096 items:**
-  - `RawPtr::Hashmap` is about **4.1%** slower than `unordered_map`.
-  - `SharedPtr::Hashmap` is about **25%** slower than `unordered_map`.
+  - `RawPtr::Hashmap` is about **1.3%** slower than `unordered_map`.
+  - `SharedPtr::Hashmap` is about **14%** slower than `unordered_map`.
 
 #### **Lookup Performance:**
 - **Looking up 1 item:**
   - `RawPtr::Hashmap` is equivalent to `unordered_map` in terms of lookup speed.
-  - `SharedPtr::Hashmap` is about **25%** slower than `unordered_map`.
+  - `SharedPtr::Hashmap` is about **30%** slower than `unordered_map`.
   
 - **Looking up 4096 items:**
-  - `RawPtr::Hashmap` is about **0.6%** slower than `unordered_map`.
-  - `SharedPtr::Hashmap` is about **7.3%** slower than `unordered_map`.
+  - `RawPtr::Hashmap` is about **0.4%** faster than `unordered_map` (almost the same)!.
+  - `SharedPtr::Hashmap` is about **0.5%** slower than `unordered_map` (almost the same again)!`.
+
+#### **Erase Performance:**
+- **Erasing up 1 items:**
+  - `RawPtr::Hashmap` is about **81%** slower than `unordered_map`.
+  - `SharedPtr::Hashmap` is about **81%** slower than `unordered_map`.
+
+- **Erasing up 4096 items:**
+  - `RawPtr::Hashmap` is about **884%** slower than `unordered_map`.
+  - `SharedPtr::Hashmap` is about **885%** slower than `unordered_map`.
 
 ### Key Insights
 
-- **`unordered_map`** is consistently the fastest across all operations, with negligible initialization overhead and highly optimized insertion and lookup times.
-- **`RawPtr::Hashmap`** performs comparably to `unordered_map` in lookup and insertion times for smaller data sets but incurs additional overhead during initialization.
-- **`SharedPtr::Hashmap`** shows a noticeable performance hit, especially in initialization and insertion, due to the additional overhead of shared pointer management.
+- **`unordered_map`** is consistently the fastest across all operations, with negligible initialization overhead and highly optimized insertion, lookup and erase times.
+- **`RawPtr::Hashmap`** performs comparably to `unordered_map` in lookup and insertion times for smaller data sets but incurs additional overhead during initialization. Erase function seems to be implemented a different method from mine, the performance difference is significant!
+- **`SharedPtr::Hashmap`** shows a noticeable performance hit, especially in initialization and insertion, due to the additional overhead of shared pointer management. Erase function seems to be implemented a different method from mine, the performance difference is significant! How do they do it???
 
 These performance benchmarks demonstrate the trade-offs between pointer management strategies and their impact on hashmap operations (skill issue xD).
 
