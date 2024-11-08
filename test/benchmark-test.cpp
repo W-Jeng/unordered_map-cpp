@@ -29,19 +29,19 @@ void default_subscript_int_int(std::unordered_map<int, int>& hashmap, int num_it
 }
 
 // Benchmark for add function
-static void InitCustomHashmap(benchmark::State& state) {
+static void rawptr_hashmap_init(benchmark::State& state) {
     for (auto _ : state) {
         custom_init_int_int();
     }
 }
 
-static void InitDefaultHashmap(benchmark::State& state) {
+static void unordered_map_init(benchmark::State& state) {
     for (auto _ : state) {
         default_init_int_int();
     }
 }
 
-static void InsertDefaultHashmap(benchmark::State& state) {
+static void unordered_map_insert(benchmark::State& state) {
     std::unordered_map<int, int> hashmap;
     int num_items = state.range(0);
     for (auto _: state) {
@@ -49,7 +49,7 @@ static void InsertDefaultHashmap(benchmark::State& state) {
     }
 }
 
-static void InsertCustomHashmap(benchmark::State& state) {
+static void rawptr_hashmap_insert(benchmark::State& state) {
     RawPtr::Hashmap<int, int> hashmap;
     int num_items = state.range(0);
     for (auto _: state) {
@@ -57,9 +57,11 @@ static void InsertCustomHashmap(benchmark::State& state) {
     }
 }
 
-BENCHMARK(InitDefaultHashmap);
-BENCHMARK(InitCustomHashmap);
-BENCHMARK(InsertDefaultHashmap) -> Arg(1) -> Arg(16) -> Arg(64) -> Arg(256) -> Arg(1024);
-BENCHMARK(InsertCustomHashmap) -> Arg(1) -> Arg(16) -> Arg(64) -> Arg(256) -> Arg(1024);
+BENCHMARK(unordered_map_init);
+BENCHMARK(rawptr_hashmap_init);
+BENCHMARK(unordered_map_insert) -> Arg(1) -> Arg(16) -> Arg(64) ->
+    Arg(256) -> Arg(1024) -> Arg(4096);
+BENCHMARK(rawptr_hashmap_insert) -> Arg(1) -> Arg(16) -> Arg(64) ->
+    Arg(256) -> Arg(1024) -> Arg(4096);
 
 BENCHMARK_MAIN();

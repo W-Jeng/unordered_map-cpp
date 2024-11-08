@@ -107,12 +107,13 @@ private:
                 } else {
                     // skipping this node == deleting it
                     previous_node -> next = current_node -> next;
-                    delete current_node;
                 }
 
+                delete current_node;
                 element_size--;
                 return;
             }
+
             previous_node = current_node;
             current_node = current_node -> next;
         }
@@ -124,11 +125,11 @@ private:
         
         while (bucket_linked_list != nullptr) {
             Node* temp = bucket_linked_list;
-            size_t resized_bucket_index = std::hash<key_type>{}(bucket_linked_list->key) % bucket_size;
-            traverse_insert(resized_buckets[resized_bucket_index], bucket_linked_list->key,
-                bucket_linked_list->value);
             bucket_linked_list = bucket_linked_list -> next;
-            delete temp;
+            size_t resized_bucket_index = std::hash<key_type>{}(temp->key) % bucket_size;
+
+            temp -> next = resized_buckets[resized_bucket_index];
+            resized_buckets[resized_bucket_index] = temp;
         }
 
         return;
@@ -155,18 +156,24 @@ private:
     void deallocate() {
 
         for (int i = 0; i < buckets.size(); ++i) {
+
             while (buckets[i] != nullptr) {
                 Node* temp = buckets[i];
                 buckets[i] = buckets[i] -> next;
                 delete temp;
             }
+            
         }
         return;
     }
 
 public:
     Hashmap(): buckets(bucket_size) {};
-    
+    Hashmap(const Hashmap& other) = delete;
+    Hashmap& operator=(const Hashmap& other) = delete;
+    Hashmap(Hashmap&& other) noexcept;
+    Hashmap& operator=(Hashmap&& other) noexcept;
+
     ~Hashmap() {
         deallocate();
     }
@@ -208,6 +215,7 @@ public:
 
             current_node = current_node -> next;
         }
+
         return false;
     }
 
