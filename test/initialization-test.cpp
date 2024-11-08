@@ -1,25 +1,31 @@
 #include<gtest/gtest.h>
+#include "hashmap_rawptr.h"
 #include "hashmap_sharedptr.h"
 #include <string>
 
 void init_string_int() {
-    SharedPtr::Hashmap<std::string, int> hmap;
+    RawPtr::Hashmap<std::string, int> raw_hmap;
+    SharedPtr::Hashmap<std::string, int> shared_hmap;
 }
 
 void init_int_int() {
-    SharedPtr::Hashmap<int, int> hmap;
+    RawPtr::Hashmap<int, int> raw_hmap;
+    SharedPtr::Hashmap<int, int> shared_hmap;
 }
 
 void init_double_int() {
-    SharedPtr::Hashmap<double, int> hmap;
+    RawPtr::Hashmap<double, int> raw_hmap;
+    SharedPtr::Hashmap<double, int> shared_hmap;
 }
 
 void init_int_string() {
-    SharedPtr::Hashmap<int, std::string> hmap;
+    RawPtr::Hashmap<int, std::string> raw_hmap;
+    SharedPtr::Hashmap<int, std::string> shared_hmap;
 }
 
 void init_string_string() {
-    SharedPtr::Hashmap<std::string, std::string> hmap;
+    RawPtr::Hashmap<std::string, std::string> raw_hmap;
+    SharedPtr::Hashmap<std::string, std::string> shared_hmap;
 }
 
 TEST(Hashmap, Initialization) {

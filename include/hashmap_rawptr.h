@@ -142,7 +142,6 @@ private:
         }
 
         bucket_size *= resize_factor;
-        element_size = 0;
         std::vector<Node*> resized_buckets(bucket_size, nullptr);
 
         for (int i = 0; i < buckets.size(); ++i) {
