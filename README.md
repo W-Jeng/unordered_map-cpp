@@ -120,11 +120,11 @@ To use the hashmaps in your own project, simply include the appropriate header f
 int main() {
     RawPtr::Hashmap<int, int> raw_map;
     raw_map.insert(1, 10);
-    std::cout << "Raw map lookup: " << raw_map.lookup(1) << std::endl;
+    std::cout << "Raw map lookup: " << raw_map.at(1) << std::endl;
     
     SharedPtr::Hashmap<int, int> shared_map;
     shared_map.insert(2, 20);
-    std::cout << "Shared map lookup: " << shared_map.lookup(2) << std::endl;
+    std::cout << "Shared map lookup: " << shared_map.at(2) << std::endl;
     
     return 0;
 }
