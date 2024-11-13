@@ -29,6 +29,7 @@ private:
         Node* next = nullptr;
 
         Node(const key_type& k, const value_type& v): key(k), value(v) {}
+
     };
 
     const int resize_factor{2};
@@ -93,30 +94,31 @@ private:
         if (bucket_linked_list == nullptr) {
             return;
         }
+        
+        if (bucket_linked_list -> key == removal_key) {
+            Node* temp = bucket_linked_list;
+            bucket_linked_list = bucket_linked_list -> next;
+            --element_size;
+            delete temp;
+            return;
+        }
 
-        Node* current_node = bucket_linked_list; 
-        Node* previous_node = nullptr;
+        Node* current_node = bucket_linked_list -> next; 
+        Node* previous_node = bucket_linked_list;
 
-        while (current_node != nullptr) {
+        while (current_node) {
 
             if (current_node -> key == removal_key) {
-
-                if (previous_node == nullptr) {
-                    // removal at head
-                    bucket_linked_list = current_node -> next;       
-                } else {
-                    // skipping this node == deleting it
-                    previous_node -> next = current_node -> next;
-                }
-
+                previous_node -> next = current_node -> next;
                 delete current_node;
-                element_size--;
+                --element_size;
                 return;
             }
 
             previous_node = current_node;
             current_node = current_node -> next;
         }
+
         return;
     }
 
@@ -231,6 +233,12 @@ public:
             std::cout << bucket_node_repr << std::endl;
         }
 
+        return;
+    }
+
+    void nothing(const key_type& removal_key) {
+        Node* temp = new Node(1, 1);
+        delete temp;
         return;
     }
 

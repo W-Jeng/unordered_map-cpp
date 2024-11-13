@@ -124,7 +124,7 @@ sharedptr_hashmap_erase/4096            9343 ns         9342 ns        74930
 
 - **`unordered_map`** is consistently the fastest across all operations, with negligible initialization overhead and highly optimized insertion, lookup and erase times.
 - **`RawPtr::Hashmap`** performs comparably to `unordered_map` in lookup and insertion times for smaller data sets but incurs additional overhead during initialization. Erase function seems to be implemented a different method from mine, the performance difference is significant!
-- **`SharedPtr::Hashmap`** shows a noticeable performance hit, especially in initialization and insertion, due to the additional overhead of shared pointer management. Erase function seems to be implemented a different method from mine, the performance difference is significant! How do they do it???
+- **`SharedPtr::Hashmap`** shows a noticeable performance hit, especially in initialization and insertion, due to the additional overhead of shared pointer management. Erase function seems to be implemented a different method from mine, the performance difference is significant! How do they do it??? It might be due to cache misses, one particular solution is to create a pool allocator.
 
 These performance benchmarks demonstrate the trade-offs between pointer management strategies and their impact on hashmap operations (skill issue xD).
 
