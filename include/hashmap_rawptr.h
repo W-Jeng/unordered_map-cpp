@@ -236,12 +236,6 @@ public:
         return;
     }
 
-    void nothing(const key_type& removal_key) {
-        Node* temp = new Node(1, 1);
-        delete temp;
-        return;
-    }
-
     void clear() {
 
         deallocate();
