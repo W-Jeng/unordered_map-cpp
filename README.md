@@ -156,8 +156,9 @@ int main() {
 To build the project, follow these steps:
 1. Clone the repository:
 ```bash
-git clone https://github.com/W-Jeng/separate_chaining_hashmap.git
-cd separate_chaining_hashmap
+git clone https://github.com/W-Jeng/unordered_map-cpp.git
+cd unordered_map-cpp
+git submodule update --init --recursive
 ```
 
 2. Create the build directory and compile the project:
